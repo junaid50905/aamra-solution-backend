@@ -17,6 +17,13 @@ class UserController extends Controller
             'password' => 'required'
         ]);
 
+        if(User::where('email', $request->email)->first()){
+            return response([
+                'message' => 'This email already exists',
+                'status' => 'failed'
+            ], 422);
+        }
+
         $user = User::create([
             'email' => $request->email,
             'name' => $request->name,
@@ -62,20 +69,22 @@ class UserController extends Controller
     // logout
     public function logout()
     {
-        if (auth()->check()) {
+        // if (auth()->check()) {
 
-            auth()->user()->tokens()->delete();
+
+        // }
+
+        // return response([
+        //     'message' => 'User not authenticated',
+        //     'status' => 'failed'
+        // ], 401);
+
+        auth()->user()->tokens()->delete();
 
             return response([
                 'message' => 'Successfully logged out',
                 'status' => 'success'
             ], 200);
-        }
-
-        return response([
-            'message' => 'User not authenticated',
-            'status' => 'failed'
-        ], 401);
     }
 
     // logged user data
