@@ -22,6 +22,7 @@
                 <th scope="col">Email</th>
                 <th scope="col">Name</th>
                 <th scope="col">Activity</th>
+                <th scope="col">Reset password</th>
             </tr>
         </thead>
         <tbody>
@@ -30,6 +31,9 @@
                 <th scope="row">{{ $loop->iteration }}</th>
                 <td>{{ $user->email }}</td>
                 <td>{{ $user->name }}</td>
+                <td>
+                    <a href="{{ route('activity', $user->id) }}" class="btn {{ $user->activity=== 1 ? "btn-success" : "btn-danger" }}">{{ $user->activity=== 1 ? "Enable" : "Disable" }}</a>
+                </td>
                 <td>
                     <a href="{{ route('reset_password_form', $user->id) }}" class="btn btn-warning">Reset password</a>
                 </td>

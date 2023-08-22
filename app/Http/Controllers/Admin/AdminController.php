@@ -35,4 +35,18 @@ class AdminController extends Controller
 
 
     }
+    // changeActivity
+    public function changeActivity($id)
+    {
+        $user = User::find($id);
+        if($user){
+            if($user->activity === 1){
+                $user->activity = 0;
+            }else{
+                $user->activity = 1;
+            }
+            $user->save();
+        }
+        return back();
+    }
 }
