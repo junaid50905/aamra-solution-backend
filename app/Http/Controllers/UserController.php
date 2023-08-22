@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\UserProfile;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
@@ -113,6 +114,28 @@ class UserController extends Controller
             'message' => 'Password changed successfully',
             'status' => 'success'
         ]);
+    }
+
+    // profile
+    public function profile(Request $request)
+    {
+        $logged_user_id = auth()->user()->id;
+        UserProfile::updateOrInsert(
+            ['user_id' => $logged_user_id],
+            [
+                'father_name' => $request->father_name,
+                'mother_name' => $request->mother_name,
+                'spouse_name' => $request->spouse_name,
+                'phone' => $request->phone,
+                'profile_picture' => $request->profile_picture,
+                'gender' => $request->gender,
+            ]
+        );
+        return response([
+            'message' => 'Successfully update profile information',
+            'status' => 'success',
+        ], 200);
+
     }
 
 }
