@@ -11,8 +11,8 @@ class AdminController extends Controller
 {
     public function index()
     {
-        $users = User::all();
-        return view('admin.admin_dashboard', compact('users'));
+        $users = User::orderBy('id', 'DESC')->get();
+        return view('admin.layouts.dashboard', compact('users'));
     }
     public function resetPasswordForm($id)
     {

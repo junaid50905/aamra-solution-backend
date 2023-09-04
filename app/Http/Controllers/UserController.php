@@ -18,7 +18,7 @@ class UserController extends Controller
             'password' => 'required'
         ]);
 
-        if(User::where('email', $request->email)->first()){
+        if (User::where('email', $request->email)->first()) {
             return response([
                 'message' => 'This email already exists',
                 'status' => 'failed'
@@ -70,22 +70,14 @@ class UserController extends Controller
     // logout
     public function logout()
     {
-        // if (auth()->check()) {
 
-
-        // }
-
-        // return response([
-        //     'message' => 'User not authenticated',
-        //     'status' => 'failed'
-        // ], 401);
 
         auth()->user()->tokens()->delete();
 
-            return response([
-                'message' => 'Successfully logged out',
-                'status' => 'success'
-            ], 200);
+        return response([
+            'message' => 'Successfully logged out',
+            'status' => 'success'
+        ], 200);
     }
 
     // logged user data
@@ -116,6 +108,8 @@ class UserController extends Controller
         ]);
     }
 
+
+
     // profile
     public function profile(Request $request)
     {
@@ -135,7 +129,18 @@ class UserController extends Controller
             'message' => 'Successfully update profile information',
             'status' => 'success',
         ], 200);
+    }
 
+    // profileData
+    public function profileData()
+    {
+        $logged_user_id = auth()->user()->id;
+        $user_profile_data = UserProfile::where('user_id', $logged_user_id)->first();
+
+        return response([
+            'profile' => $user_profile_data,
+            'status' => 'success'
+        ], 200);
     }
 
 }
