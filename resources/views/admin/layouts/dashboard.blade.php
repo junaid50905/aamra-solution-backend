@@ -23,8 +23,8 @@
                                 @forelse ($users as $user)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
-                                        <td>{{ $user->email }}</td>
                                         <td>{{ $user->name }}</td>
+                                        <td>{{ $user->email }}</td>
                                         <td>
                                             <a href="{{ route('activity', $user->id) }}"
                                                 class="btn {{ $user->activity === 1 ? 'btn-success' : 'btn-danger' }}">{{ $user->activity === 1 ? 'Enable' : 'Disable' }}</a>

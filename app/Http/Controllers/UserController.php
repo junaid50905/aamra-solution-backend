@@ -125,6 +125,7 @@ class UserController extends Controller
                 'gender' => $request->gender,
             ]
         );
+        
         return response([
             'message' => 'Successfully update profile information',
             'status' => 'success',
